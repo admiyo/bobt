@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="jquery.js"></script>
+<script> 
+$(document).ready(function(){
+  //state right = 0, down = 1, left = 2, up = 3
+
+  var images = Array("turtle-right.png", "turtle-down.png",
+                     "turtle-left.png", "turtle-up.png")
+
+  state = 0 ;
+  home_left = 0;
+  home_top = 100;
+  position_left = home_left;  
+  position_top = home_top;  
+
+
+  $("button#forward").click(function(){
+    if (state == 0) {
+       position_left += 100;
+    }
+    if (state == 1) {
+       position_top += 100;
+    }
+    if (state == 2) {
+       position_left -= 100;
+
+    }
+    if (state == 3) {
+       position_top -= 100;
+    }
+   $("div").animate({left: position_left, top:position_top });
+  });
+
+
+
+
+  $("button#clockwise").click(function(){
+    state++;
+    state = state % 4;
+    var newimage = images[state];
+    $("div#turtle").css("background-image", "url("+newimage+")");
+  });
+
+  $("button#widdershins").click(function(){
+    state--;
+    if (state < 0 ) {
+                state = 3;
+    }
+    var newimage = images[state];
+    $("div#turtle").css("background-image", "url("+newimage+")");
+
+  });
+
+
+
+  $("button#reset").click(function(){
+        state = 0;
+        position_left = home_left;  
+        position_top = home_top;  
+        $("div").animate({left: position_left, top:position_top });
+        $("div#turtle").css("background-image", "url("+images[0]+")");
+  });
+
+
+
+});
+</script> 
+</head>
+ 
+<body>
+<button id="forward">Forward</button>
+<button id="reset">Reset To Home</button>
+<button id="clockwise">Clockwise</button>
+<button id="widdershins">Widdershins</button>
+
+
+
+<p>By default, all HTML elements have a static position, and cannot be moved. To manipulate the position, remember to first set the CSS position property of the element to relative, fixed, or absolute!</p>
+<div id="turtle" style="height:200px;width:200px;position:absolute;background-image:url(turtle-right.png);  "></div>
+
+</body>
+</html>
