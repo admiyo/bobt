@@ -74,9 +74,13 @@ function set_image(){
    }
 }
 
+
 function step_program(){
-    stepping = 1;
     program_text = $('input#program').val();
+
+    if (instruction_counter >= program_text.length){
+        return
+    }
     
     instruction = program_text.charAt(instruction_counter);
     if (instruction == 'f'){
@@ -118,15 +122,20 @@ function run_program(){
 
 
   $("button#forward").click(function(){
+
+    $('input#program').val($('input#program').val() + 'f');
      move_forward();
   });
 
   $("button#clockwise").click(function(){
+    $('input#program').val($('input#program').val() + 'c');
+
      turn_clockwise()
   });
 
  
  $("button#widdershins").click(function(){
+    $('input#program').val($('input#program').val() + 'w');
      turn_widdershins();  
   });
 
