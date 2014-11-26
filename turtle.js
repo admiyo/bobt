@@ -15,45 +15,45 @@ function turtle_game(){
    $("div").animate({left: position_left, top:position_top });
 
 function  update_position(){
-         if (facing == 0) {
-             position_left += 100;
-         }
-         if (facing == 12) {
-             position_top += 100;
-         }
-         if (facing == 8) {
-             position_left -= 100;             
-         }
-         if (facing == 4) {
-             position_top -= 100;
-         } 
- }
-
-function  updated_top(){
-    if (facing == 12) {
-        return "+100";
-    }
-    if (facing == 4) {
-        return "-100";
-    } 
-    return position_top;
- }
-
-
-function  updated_left(){
     if (facing == 0) {
-        return "+100";
+        position_left += 1;
+    }
+    if (facing == 12) {
+        position_top += 1;
     }
     if (facing == 8) {
-        return "-100";             
+        position_left -= 1;             
     }
-    return position_left; 
+    if (facing == 4) {
+        position_top -= 1;
+    } 
+}
+
+
+ function move_step(currentStep){
+     update_position();
+     $("div#turtle").css({
+         "position":"absolute", 
+         "top": position_top + "px",
+         "left": position_left + "px",
+     }); 
+
  }
+
 
 
  function move_forward(){
-     $("div#turtle").animate({left: updated_left(), top:updated_top() },
-                             {start: update_position});
+     $("div#turtle").animate(
+         {
+             textIndent: 0
+         },
+         {
+             duration: 2000,
+             step: move_step,
+             start: function(){
+                 $("div#turtle").css( "text-indent", 100 );
+             }
+         });
  }
 
  function turn_step(currentStep){
@@ -94,7 +94,6 @@ function turn_widdershins(){
              }
          });
 }
-
 
 function step_program(){
     program_text = $('input#program').val();
