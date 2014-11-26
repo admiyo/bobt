@@ -1,6 +1,8 @@
-#sturtle {
- position:absolute;
- top:200;
- left:0;
- width:200px;
+div#turtle {
+
+    height:200px;
+    width:200px;
+    position:absolute;
+    background-image:url(images/turtle-0-16.png); 
+    background-repeat:no-repeat
 }
